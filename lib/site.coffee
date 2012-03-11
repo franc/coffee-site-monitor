@@ -5,9 +5,10 @@ Url = require("url")
 communications = require("./communication")
 
 class Site extends events.EventEmitter
-  constructor: (config) ->
+  constructor: (config, baseConfig) ->
     events.EventEmitter.call this
     @config = config
+    @baseConfig = baseConfig
     @name = config.name
     @type = config.type
     @url = config.url
@@ -36,24 +37,24 @@ class Site extends events.EventEmitter
         @down = false
       callback stats
   
-  notify_users: (stats, storage) =>
-    if @isDown() is @wasDown()
-      @users.forEach (user) ->
-        user.contact_methods.forEach (communicationMethod) ->
+  notify_users: (stats, storage, up_down) =>
+    if @isDown() or @wasDown()
+      @users.forEach (user) =>
+        user.contact_methods.forEach (communicationMethod) =>
           commsClass = communications.findByType(communicationMethod.type)
           comms = new commsClass(
             username: user.username,
             communicationMethod,
-            config
+            @baseConfig
           )
           if comms.isAllowed()
-            comms.send up_down, @, stats, (success, error) ->
+            comms.send up_down, @, stats, (success, error) =>
               if success
                 storage.logCommunicationSuccess @, comms
               else
                 storage.logCommunicationFailure @, comms, error
-    else
-      storage.logFalseAlarm @
+    #else if isDown() is false
+    #  storage.logFalseAlarm @
 
   request: (callback) ->
     @lastRun = new Date().getTime()
@@ -98,9 +99,9 @@ class Site extends events.EventEmitter
             else
               stats.contentMatched = false
               stats.notes = "The site content did not contain the string: \"" + @content + "\""
-              console.log @content
-              console.log 'not found in:'
-              console.log stats.body
+              #console.log @content
+              #console.log 'not found in:'
+              #console.log stats.body
           callback stats
       )
 

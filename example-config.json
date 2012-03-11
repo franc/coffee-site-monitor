@@ -24,6 +24,7 @@
 		}
 	],
 	"email": {
+		"from": "Site Up Alert",
 		"sender": "siteup.notifier@gmail.com",
 		"service": "Gmail",
 		"username": "siteup.notifier@gmail.com",
