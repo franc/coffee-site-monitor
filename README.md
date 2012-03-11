@@ -1,6 +1,6 @@
 #Coffee Site Monitor
 
-based off Node Site Monitor : https://git@github.com/hootware/node-site-json.git
+based off [Node Site Monitor](https://git@github.com/hootware/node-site-json.git)
 
 A simple node server that will check the status of any number of websites and alert any number of users in different ways.
 
@@ -10,9 +10,7 @@ Node Site Monitor has a slightly different philosophy to what I hold: users shou
 
 redirects should also be followed so as to verify content that would actually be displayed in the browser.
 
-I also wanted to do as much as possible in CoffeeScript.
-
-In the project's future everything with be CoffeeScript and it will focus on getting site config from MongoDB. There will be a central deployment that will communicate with other instances that do the response testing, and take care of communication with users centrally.   
+I also wanted to do as much as possible in CoffeeScript. In the project's future everything will be CoffeeScript and it will focus on getting site config from MongoDB. There will be a central deployment that will communicate with other instances that do the response testing, and take care of communication with users centrally.
 
 ##Install
 
