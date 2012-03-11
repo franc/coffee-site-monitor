@@ -1,0 +1,21 @@
+{
+	"name": "coffee-site-monitor",
+	"version": "0.0.1",
+	"description": "Website monitor",
+	"main": "site-monitor.coffee",
+	"scripts": {
+		"start": "coffee site-monitor"
+	},
+	"keywords": [
+		"website",
+		"monitor",
+		"siteup"
+	],
+	"repository": {
+		"type": "git",
+		"url": "https://git@github.com:franc/coffee-site-monitor.git"
+	},
+	"dependencies": {
+		"nodemailer": "x.x.x"
+	}
+}

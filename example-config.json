@@ -1,0 +1,32 @@
+{
+	"storage": {
+		"type": "stdout"
+	},
+	"sites": [
+		{
+			"type": "http",
+			"name": "guestbook.co.za",
+			"url": "http://guestbook.co.za",
+			"content": "manage your guesthouse from any computer",
+			"interval": 300,
+			"timeout": 5,
+			"users": [
+				{		
+					"username":"franc",
+					"contact_methods":[
+						{
+							"type":"email",
+							"address": "francois@rails.co.za"	
+						}
+					]
+				}
+			]
+		}
+	],
+	"email": {
+		"sender": "siteup.notifier@gmail.com",
+		"service": "Gmail",
+		"username": "siteup.notifier@gmail.com",
+		"password": "notifier site up password"
+	}
+}
