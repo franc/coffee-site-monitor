@@ -1,5 +1,6 @@
 #Coffee Site Monitor
-## based off Node Site Monitor : https://git@github.com/hootware/node-site-json.git
+
+based off Node Site Monitor : https://git@github.com/hootware/node-site-json.git
 
 A simple node server that will check the status of any number of websites and alert any number of users in different ways.
 
