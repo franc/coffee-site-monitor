@@ -17,11 +17,13 @@ runChecks = ->
         if site.isDown() and not site.wasDown()
           storage.logFailure site, stats
           up_down = "down"
+          site.notify_users(stats, storage)
         else if not site.isDown() and site.wasDown()
           storage.logSuccess site, stats
           up_down = "up"
         else if site.isDown() and site.wasDown()
           storage.logFailure site, stats
+          site.notify_users(stats, storage)
         else
           storage.logSuccess site, stats
         if up_down isnt false

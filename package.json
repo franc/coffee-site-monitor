@@ -17,5 +17,6 @@
 	},
 	"dependencies": {
 		"nodemailer": "x.x.x"
+		"request": "x.x.x"
 	}
 }

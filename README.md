@@ -6,7 +6,12 @@ A simple node server that will check the status of any number of websites and al
 
 ##Why not just use Node Site Monitor?
 
-Node Site Monitor has a slightly different philosophy to what I hold: users should be tightly related to sites. A site should have its own array of users, and those users may want different communication channels for different sites. I also wanted to do as much as possible in CoffeeScript.
+Node Site Monitor has a slightly different philosophy to what I hold: users should be tightly related to sites. A site should have its own array of users, and those users may want different communication channels for different sites. 
+
+redirects should also be followed so as to verify content that would actually be displayed in the browser.
+
+I also wanted to do as much as possible in CoffeeScript.
+
 In the project's future everything with be CoffeeScript and it will focus on getting site config from MongoDB. There will be a central deployment that will communicate with other instances that do the response testing, and take care of communication with users centrally.   
 
 ##Install

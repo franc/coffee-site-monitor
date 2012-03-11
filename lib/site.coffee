@@ -1,9 +1,8 @@
 events = require("events")
 util = require("util")
-http = require("http")
+request = require("request")
 Url = require("url")
-communications = require("./lib/communication")
-#util.inherits Site, events.EventEmitter
+communications = require("./communication")
 
 class Site extends events.EventEmitter
   constructor: (config) ->
@@ -72,54 +71,38 @@ class Site extends events.EventEmitter
       notes: null
 
     url = Url.parse(@url)
-    url.port = (if url.port then url.port else 80)
-    client = http.createClient(url.port, url.host)
+  
     headers =
       Host: url.host + ":" + url.port
-      "User-Agent": "node-site-monitor/0.1.0"
+      "User-Agent": "coffee-site-monitor/0.0.1"
 
-    request = client.request("GET", url.pathname, headers)
-    stats.request = request
-    connectTimeout = setTimeout(=>
-      request.abort()
-      stats.connectTimeout = true
-      stats.connectFailed = true
-      callback stats
-    , @timeout * 1000)
-    
-    client.on "error", (err) ->
-      stats.connectFailed = true
-      clearTimeout connectTimeout
-      callback stats
-
-    request.on "error", (err) ->
-      stats.connectFailed = true
-      clearTimeout connectTimeout
-      callback stats
-
-    request.on "response", (response) ->
-      stats.response = response
-      stats.statusCode = response.statusCode
-      stats.connectTime = (new Date().getTime() - stats.startTime) / 1000
-      clearTimeout connectTimeout
-      request.connectTimeout = null
-      body = ""
-      response.on "data", (chunk) ->
-        body += chunk.toString("utf8")
-
-      response.on "end", ->
-        stats.body = body
-        stats.responseTime = (new Date().getTime() - stats.startTime) / 1000
-        if @content isnt null
-          if stats.body.indexOf(@content) >= 0
-            stats.contentMatched = true
-          else
-            stats.contentMatched = false
-            stats.notes = "The site content did not contain the string: \"" + @content + "\""
-        callback stats
-      .bind(this)
-    .bind(this)
-    request.end()  
+    request(
+      {
+        url: url
+        headers: headers
+        timeout: @timeout * 1000
+      },
+      (err, resp, body) =>
+        if err
+          stats.connectFailed = true
+          callback stats
+        else if resp
+          stats.response = resp
+          stats.statusCode = resp.statusCode
+          stats.connectTime = (new Date().getTime() - stats.startTime) / 1000
+          stats.body = body
+          stats.responseTime = (new Date().getTime() - stats.startTime) / 1000
+          if @content isnt null
+            if stats.body.indexOf(@content) >= 0
+              stats.contentMatched = true
+            else
+              stats.contentMatched = false
+              stats.notes = "The site content did not contain the string: \"" + @content + "\""
+              console.log @content
+              console.log 'not found in:'
+              console.log stats.body
+          callback stats
+      )
 
 module.exports = Site
 
