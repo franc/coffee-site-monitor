@@ -47,13 +47,13 @@ class Site extends events.EventEmitter
             config
           )
           if comms.isAllowed()
-            comms.send up_down, site, stats, (success, error) ->
+            comms.send up_down, @, stats, (success, error) ->
               if success
-                storage.logCommunicationSuccess site, comms
+                storage.logCommunicationSuccess @, comms
               else
-                storage.logCommunicationFailure site, comms, error
+                storage.logCommunicationFailure @, comms, error
     else
-      storage.logFalseAlarm site
+      storage.logFalseAlarm @
 
   request: (callback) ->
     @lastRun = new Date().getTime()
