@@ -1,3 +1,4 @@
+[![build status](https://secure.travis-ci.org/franc/coffee-site-monitor.png)](http://travis-ci.org/franc/coffee-site-monitor)
 #Coffee Site Monitor
 
 based off [Node Site Monitor](https://git@github.com/hootware/node-site-json.git)
